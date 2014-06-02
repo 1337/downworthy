@@ -3,7 +3,7 @@ var start = !!startingOptions;
 
 function splitTrim(string, delim) {
     split = string.split(delim);
-    for (var i=0; i<split.length; i++) {
+    for (var i = 0; i < split.length; i++) {
         split[i] = split[i].trim();
     }
     return split;

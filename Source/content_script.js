@@ -1,6 +1,7 @@
 (function() {
-    var _self = this;
-    var _dictionary;
+    "use strict";
+    var _self = this,
+        _dictionary;
 
     function getDictionary(callback) {
         chrome.extension.sendRequest({id: "getDictionary"}, function(response) {
@@ -10,39 +11,44 @@
     }
 
     function handleText(textNode) {
-        var replacements = _dictionary.replacements;
-    var expressions = _dictionary.expressions;
-        var v = textNode.nodeValue;
-        var matchFound = false;
-
-        var regex, original;
+        var replacements = _dictionary.replacements,
+            expressions = _dictionary.expressions,
+            v = textNode.nodeValue,
+            matchFound = false,
+            regex,
+            original,
+            original_escaped,
+            regex_for_question_mark,
+            regex_for_period;
 
         //text replacements
         for(original in replacements) {
-            original_escaped = original;
+            if (replacements.hasOwnProperty(original)) {
+                original_escaped = original;
 
-            regex_for_question_mark = /\?/g
-            regex_for_period = /\./g
+                regex_for_question_mark = /\?/g;
+                regex_for_period = /\./g;
 
-            original_escaped = original_escaped.replace(regex_for_question_mark, "\\?");
-            original_escaped = original_escaped.replace(regex_for_period, "\\.");
+                original_escaped = original_escaped.replace(regex_for_question_mark, "\\?");
+                original_escaped = original_escaped.replace(regex_for_period, "\\.");
 
-            regex = new RegExp('\\b' + original_escaped + '\\b', "gi");
-            if (v.match(regex)) {
-                v = v.replace(regex, replacements[original]);
-                matchFound = true;
+                regex = new RegExp('\\b' + original_escaped + '\\b', "gi");
+                if (v.match(regex)) {
+                    v = v.replace(regex, replacements[original]);
+                    matchFound = true;
+                }
             }
-
         }
         
         // regex replacements
         for(original in expressions) {
-            regex = new RegExp(original, "g");
-            if (v.match(regex)) {
-                v = v.replace(regex, expressions[original]);
-                matchFound = true;
+            if (expressions.hasOwnProperty(original)) {
+                regex = new RegExp(original, "g");
+                if (v.match(regex)) {
+                    v = v.replace(regex, expressions[original]);
+                    matchFound = true;
+                }
             }
-
         }
 
         // Only change the node if there was any actual text change
@@ -113,7 +119,7 @@
     chrome.extension.sendRequest({id: 'getExcluded'}, function (r2) {
         
         var ex = r2.value;
-        for (x in ex) { 
+        for (var x in ex) {
             if (window.location.href.indexOf(ex[x]) != -1) {
                 return;
             }
@@ -125,8 +131,6 @@
     });
 
     });
-
-
 
 
     /**
@@ -152,4 +156,4 @@
         timeout = setTimeout(work, 500);
     }, false);
 
-})();
+}());

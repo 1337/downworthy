@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
     var ONE_DAY = 1000 * 60 * 60 * 24;
 
@@ -16,24 +16,24 @@
         var lastChangedAt, pollTimeout;
         var options = JSON.parse(localStorage.getItem(KEY_OPTIONS));
 
-        if(options && options.checkDaily) {
+        if (options && options.checkDaily) {
             lastChangedAt = parseInt(localStorage.getItem(KEY_LAST_CHANGED_AT), 10);
 
             // If it's never been changed, or if it's been over a day since it was changed...
-            if(isNaN(lastChangedAt) || lastChangedAt + ONE_DAY < now()) {
+            if (isNaN(lastChangedAt) || lastChangedAt + ONE_DAY < now()) {
                 var pause = Math.random() > 0.5; // Flip a coin!
                 lastChangedAt = setPaused(pause);
             }
 
             // Set up the next check.
-            if(!_alreadyQueued) {
+            if (!_alreadyQueued) {
                 pollTimeout = (lastChangedAt + ONE_DAY) - now();
 
-                setTimeout(function() {
+                setTimeout(function () {
                     _alreadyQueued = false;
                     checkForRandomSwap();
                 }, pollTimeout);
-                
+
                 _alreadyQueued = true;
             }
         }
@@ -41,7 +41,7 @@
 
     function updateBadge(paused) {
         var badgeText = paused ? "OFF" : "";
-        chrome.browserAction.setBadgeText( { text: badgeText } );
+        chrome.browserAction.setBadgeText({ text: badgeText });
     }
 
     function isPaused() {
@@ -52,7 +52,7 @@
         var lastChangedAt = now();
 
         localStorage.setItem(KEY_PAUSED, paused);
-        chrome.storage.sync.set( { 'paused': paused } );
+        chrome.storage.sync.set({ 'paused': paused });
         updateBadge(paused);
 
         localStorage.setItem(KEY_LAST_CHANGED_AT, lastChangedAt);
@@ -74,17 +74,17 @@
     function onMessage(request, sender, sendResponse) {
         var requestId = request.id;
 
-        if(requestId == 'isPaused?') {
+        if (requestId == 'isPaused?') {
             // TODO: Convert to boolean.
             sendResponse({value: isPaused()});
         }
-        else if(requestId == 'getExcluded') {
+        else if (requestId == 'getExcluded') {
             sendResponse({value: getExcluded()});
         }
-        else if(requestId == 'setOptions') {
+        else if (requestId == 'setOptions') {
             localStorage.setItem(KEY_OPTIONS, request.options);
         }
-        else if(requestId == 'getDictionary') {
+        else if (requestId == 'getDictionary') {
             sendResponse(dictionary);
         }
     }

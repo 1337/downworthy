@@ -1,4 +1,4 @@
-var dictionary={
+var dictionary = {
     "replacements": {
         "A Single" : "A",
         "Absolutely" : "Moderately",
