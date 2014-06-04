@@ -1,12 +1,36 @@
-(function () {
+/*global localStorage*/
+/**
+ * Copyright (c) <YEAR>, <OWNER>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+(function (dictionary) {
+    "use strict";
 
-    var ONE_DAY = 1000 * 60 * 60 * 24;
-
-    var KEY_LAST_CHANGED_AT = 'lastChangedAt';
-    var KEY_OPTIONS = 'options';
-    var KEY_PAUSED = 'paused';
-
-    var _alreadyQueued = false;
+    var ONE_DAY = 1000 * 60 * 60 * 24,
+        KEY_LAST_CHANGED_AT = 'lastChangedAt',
+        KEY_OPTIONS = 'options',
+        KEY_PAUSED = 'paused',
+        _alreadyQueued = false;
 
     function now() {
         return new Date().getTime();
@@ -21,7 +45,7 @@
 
             // If it's never been changed, or if it's been over a day since it was changed...
             if (isNaN(lastChangedAt) || lastChangedAt + ONE_DAY < now()) {
-                var pause = Math.random() > 0.5; // Flip a coin!
+                var pause = (0.5 > Math.random()); // Flip a coin!
                 lastChangedAt = setPaused(pause);
             }
 
@@ -45,7 +69,7 @@
     }
 
     function isPaused() {
-        return (localStorage.getItem(KEY_PAUSED) == 'true');
+        return 'true' === localStorage.getItem(KEY_PAUSED);
     }
 
     function setPaused(paused) {
@@ -68,24 +92,28 @@
 
     function getExcluded() {
         var opts = JSON.parse(localStorage.getItem(KEY_OPTIONS));
-        return opts ? opts['excluded'] : [];
+        return opts ? opts.excluded : [];
     }
 
     function onMessage(request, sender, sendResponse) {
         var requestId = request.id;
 
-        if (requestId == 'isPaused?') {
+        switch (requestId) {
+        case 'isPaused?':
             // TODO: Convert to boolean.
             sendResponse({value: isPaused()});
-        }
-        else if (requestId == 'getExcluded') {
+            break;
+        case 'getExcluded':
             sendResponse({value: getExcluded()});
-        }
-        else if (requestId == 'setOptions') {
+            break;
+        case 'setOptions':
             localStorage.setItem(KEY_OPTIONS, request.options);
-        }
-        else if (requestId == 'getDictionary') {
+            break;
+        case 'getDictionary':
             sendResponse(dictionary);
+            break;
+        default:
+            throw new Error("Unmanaged case " + requestId);
         }
     }
 
@@ -99,4 +127,4 @@
 
     checkForRandomSwap();
 
-})();
+}(this.dictionary));

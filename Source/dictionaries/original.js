@@ -66,7 +66,7 @@ var dictionary = {
         "You Won&#8217;t Believe" : "In All Likelihood, You'll Believe",
         "You Wont Believe" : "In All Likelihood, You'll Believe"
     },
-    
+
     "expressions": {
         "\\b(?:Top )?((?:(?:\\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) Things" : "Inane Listicle of $1 Things You've Already Seen Somewhere Else",
         "\\b[Rr]estored [Mm]y [Ff]aith [Ii]n [Hh]umanity\\b" : "Affected Me In No Meaningful Way Whatsoever",
