@@ -1,18 +1,19 @@
 (function () {
     "use strict";
-    var _self = this,
-        _dictionary;
+    var self = this,
+        dictionary;
 
     function getDictionary(callback) {
+        var args = arguments.slice(1);
         chrome.extension.sendRequest({id: "getDictionary"}, function (response) {
-            _dictionary = response; // Store the dictionary for later use.
-            callback.apply(_self, arguments);
+            dictionary = response; // Store the dictionary for later use.
+            callback.apply(self, args);
         });
     }
 
     function handleText(textNode) {
-        var replacements = _dictionary.replacements,
-            expressions = _dictionary.expressions,
+        var replacements = dictionary.replacements,
+            expressions = dictionary.expressions,
             v = textNode.nodeValue,
             matchFound = false,
             regex,
@@ -131,6 +132,26 @@
         });
 
     });
+
+    var debounce = function (fn, after) {
+        var timeout = after,
+            running = false;  // keeps state
+
+        if (running) {
+
+        }
+
+        return function () {
+            var result;
+
+            running = true;
+            result = fn();
+            running = false;
+
+            return result;
+        };
+        timeout = setTimeout(work, 500);
+    };
 
 
     /**
