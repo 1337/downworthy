@@ -1,7 +1,7 @@
-(function () {
+/*global chrome*/
+(function (self) {
     "use strict";
-    var self = this,
-        dictionary;
+    var dictionary;
 
     function getDictionary(callback) {
         var args = arguments.slice(1);
@@ -59,12 +59,11 @@
 
     }
 
+    /**
+     * Original reference http://is.gd/mwZp7E
+     * @param node
+     */
     function walk(node) {
-
-        // I stole this function from here: - ZW
-        // And I stole it from ZW - AG
-        // http://is.gd/mwZp7E
-
         var child, next;
 
         switch (node.nodeType) {
@@ -85,29 +84,6 @@
             throw ("Unexpected case");
         }
     }
-
-
-    // Flag to prevent multiple triggering of DOMSubtreeModified
-    // set it to true initially so that the DOMSubtreeModified event
-    // does not trigger work until the two chrome.extension requests
-    // have been handled
-    var running = true;
-
-
-    // Function that calls walk() but makes sure that it only is called once
-    // the first call has finished. Any changes that we make to the DOM in walk()
-    // will trigget DOMSubtreeModified, so we handle this by using the running flag
-    function work() {
-        // Set running to true to prevent more calls until the first one is done
-        running = true;
-
-        // Go through the DOM
-        walk(document.body);
-
-        // Set running to false to allow additional calls
-        running = false;
-    }
-
 
     chrome.extension.sendRequest({id: 'isPaused?'}, function (response) {
         var isPaused = response.value;
@@ -133,48 +109,43 @@
 
     });
 
-    var debounce = function (fn, after) {
-        var timeout = after,
-            running = false;  // keeps state
+    /**
+     * Every time the resultant function is called while it's already running,
+     * reset the timeout. Otherwise, run the function after so many ms.
+     */
+    var throttle = function (fn, after) {
+        var timeout,
+            running = false,  // keeps state
+            context = this,
+            inspect = function () {
+                var wrapper = function () {
+                    running = true;
+                    var result = fn.apply(context, arguments);
 
-        if (running) {
+                    // "done"
+                    running = false;
+                    timeout = undefined;
 
-        }
+                    return result;
+                };
 
-        return function () {
-            var result;
+                if (running) {
+                    // uncomment this for debounce
+                    /*
+                     clearTimeout(timeout);
+                     timeout = setTimeout(inspect, after);
+                     */
+                } else if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(wrapper, after);
+                } else {
+                    timeout = setTimeout(wrapper, after);
+                }
+            };
 
-            running = true;
-            result = fn();
-            running = false;
-
-            return result;
-        };
-        timeout = setTimeout(work, 500);
+        return inspect;
     };
 
+    document.addEventListener('DOMSubtreeModified', throttle(walk), false);
 
-    /**
-     The below solution to handle dynamically added content
-     is borrowed from http://stackoverflow.com/a/7326468
-     */
-
-    // Add a timer to prevent instant triggering on each DOM change
-    var timeout = null;
-
-    // Add an eventlistener for changes to the DOM, e.g. new content has been loaded via AJAX or similar
-    // Any changes that we do to the DOM will trigger this event, so we need to prevent infinite looping
-    // by checking the running flag first.
-    document.addEventListener('DOMSubtreeModified', function () {
-        if (running) {
-            return;
-        }
-
-        if (timeout) {
-            clearTimeout(timeout);
-        }
-
-        timeout = setTimeout(work, 500);
-    }, false);
-
-}());
+}(this));
