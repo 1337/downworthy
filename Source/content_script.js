@@ -83,10 +83,11 @@
             handleText(node);
             break;
         default:
-            throw ("Unexpected case");
+            // all other cases are unhandled (but allowed)
+            // throw ("Unexpected case");
         }
     }
-    
+
     // Function that calls walk() but makes sure that it only is called once
     // the first call has finished. Any changes that we make to the DOM in walk()
     // will trigger DOMSubtreeModified, so we handle this by using the running flag
@@ -136,7 +137,7 @@
     // Add an eventlistener for changes to the DOM, e.g. new content has been loaded via AJAX or similar
     // Any changes that we do to the DOM will trigger this event, so we need to prevent infinite looping
     // by checking the running flag first. 
-    document.addEventListener('DOMSubtreeModified', function(){
+    document.addEventListener('DOMSubtreeModified', function () {
         if (running) {
             return;
         }
