@@ -11,10 +11,13 @@ var dictionary = {
         "Can't Even Handle" : "Can Totally Handle Without Any Significant Issue",
         "Can't Handle" : "Can Totally Handle Without Any Significant Issue",
         "Cannot Even Handle" : "Can Probably Totally Handle",
+        "disruption": "bullshit",  // https://news.ycombinator.com/item?id=7982410
         "Doesn't want you to see" : "Doesn't Really Care If You See",
         "Epic" : "Mundane",
+        "finally ": "",  // someone finally releases software update
         "Go Viral" : "Be Overused So Much That You'll Silently Pray for the Sweet Release of Death to Make it Stop",
         "Greatest" : "Average",
+        "growth hacking": "marketing",  // https://news.ycombinator.com/item?id=7982410
         "Incredible" : "Painfully Ordinary",
         "Infuriate" : "Mildly Annoy",
         "Literally" : "Figuratively",
@@ -28,6 +31,7 @@ var dictionary = {
         "OMG" : "*yawn*",
         "One Weird Trick" : "One Piece of Completely Anecdotal Horseshit",
         "Perfection" : "Mediocrity",
+        "pivot": "bullshit",  // https://news.ycombinator.com/item?id=7982410
         "Priceless" : "Painfully Ordinary",
         "Right Now" : "Eventually",
         "Scientific Reasons" : "Vaguely Science-y Reasons",

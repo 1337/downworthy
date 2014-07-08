@@ -1,10 +1,12 @@
 /*global chrome*/
 (function (self) {
     "use strict";
-    var dictionary;
+    var dictionary,
+        timeout = null,
+        running = true;
 
     function getDictionary(callback) {
-        var args = arguments.slice(1);
+        var args = Array.prototype.slice.call(arguments, 0).slice(1);
         chrome.extension.sendRequest({id: "getDictionary"}, function (response) {
             dictionary = response; // Store the dictionary for later use.
             callback.apply(self, args);
@@ -84,6 +86,20 @@
             throw ("Unexpected case");
         }
     }
+    
+    // Function that calls walk() but makes sure that it only is called once
+    // the first call has finished. Any changes that we make to the DOM in walk()
+    // will trigger DOMSubtreeModified, so we handle this by using the running flag
+    function work() {
+        // Set running to true to prevent more calls until the first one is done
+        running = true;
+
+        // Go through the DOM
+        walk(document.body);
+
+        // Set running to false to allow additional calls
+        running = false;
+    }
 
     chrome.extension.sendRequest({id: 'isPaused?'}, function (response) {
         var isPaused = response.value;
@@ -93,12 +109,20 @@
             return;
         }
 
-        chrome.extension.sendRequest({id: 'getExcluded'}, function (r2) {
+        chrome.extension.sendRequest({id: 'getExcluded'}, function (response) {
 
-            var ex = r2.value;
-            for (var x in ex) {
-                if (window.location.href.indexOf(ex[x]) != -1) {
-                    return;
+            var idx,
+                excludedUrl,
+                excludedUrls = response.value;  /* [""], iterated using obj notation for some reason */
+            for (idx in excludedUrls) {
+                if (excludedUrls.hasOwnProperty(idx)) {
+                    excludedUrl = excludedUrls[idx];
+                    if (!excludedUrl) {
+                        continue;
+                    }
+                    if (window.location.href.indexOf(excludedUrl) !== -1) {
+                        return;
+                    }
                 }
             }
 
@@ -109,43 +133,19 @@
 
     });
 
-    /**
-     * Every time the resultant function is called while it's already running,
-     * reset the timeout. Otherwise, run the function after so many ms.
-     */
-    var throttle = function (fn, after) {
-        var timeout,
-            running = false,  // keeps state
-            context = this,
-            inspect = function () {
-                var wrapper = function () {
-                    running = true;
-                    var result = fn.apply(context, arguments);
+    // Add an eventlistener for changes to the DOM, e.g. new content has been loaded via AJAX or similar
+    // Any changes that we do to the DOM will trigger this event, so we need to prevent infinite looping
+    // by checking the running flag first. 
+    document.addEventListener('DOMSubtreeModified', function(){
+        if (running) {
+            return;
+        }
 
-                    // "done"
-                    running = false;
-                    timeout = undefined;
+        if (timeout) {
+            clearTimeout(timeout);
+        }
 
-                    return result;
-                };
-
-                if (running) {
-                    // uncomment this for debounce
-                    /*
-                     clearTimeout(timeout);
-                     timeout = setTimeout(inspect, after);
-                     */
-                } else if (timeout) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(wrapper, after);
-                } else {
-                    timeout = setTimeout(wrapper, after);
-                }
-            };
-
-        return inspect;
-    };
-
-    document.addEventListener('DOMSubtreeModified', throttle(walk), false);
+        timeout = setTimeout(work, 500);
+    }, false);
 
 }(this));
