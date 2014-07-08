@@ -4,6 +4,10 @@ var dictionary = {
         "Absolutely" : "Moderately",
         "Amazing" : "Barely Noticeable",
         "Awesome" : "Probably Slightly Less Boring Than Working",
+        "a art" : "an art",
+        "affect." : "effect.",
+        "affective " : "effective ",
+        "alot" : "a lot",
         "Best" : "Most Unexceptional",
         "Breathtaking" : "Fleetingly Inspirational",
         "But what happened next" : "And As You Expect It",
@@ -11,8 +15,12 @@ var dictionary = {
         "Can't Even Handle" : "Can Totally Handle Without Any Significant Issue",
         "Can't Handle" : "Can Totally Handle Without Any Significant Issue",
         "Cannot Even Handle" : "Can Probably Totally Handle",
-        "disruption": "bullshit",  // https://news.ycombinator.com/item?id=7982410
+        "could care less" : "couldn't care less",
+        "could of" : "could have",
         "Doesn't want you to see" : "Doesn't Really Care If You See",
+        "definately" : "definitely",
+        "disruption": "bullshit",  // https://news.ycombinator.com/item?id=7982410
+        "doggy dog" : "dog eat dog",
         "Epic" : "Mundane",
         "finally ": "",  // someone finally releases software update
         "Go Viral" : "Be Overused So Much That You'll Silently Pray for the Sweet Release of Death to Make it Stop",
@@ -20,11 +28,17 @@ var dictionary = {
         "growth hacking": "marketing",  // https://news.ycombinator.com/item?id=7982410
         "Incredible" : "Painfully Ordinary",
         "Infuriate" : "Mildly Annoy",
+        "imbicile" : "imbecile",
+        "ironic" : "coincidental",  // because _|_ you, that's why
+        "irregardless" : "regardless",
         "Literally" : "Figuratively",
+        "lets" : "let's",
         "Mind Blowing" : "Mind-Numbingly Ordinary",
         "Mind-Blowing" : "Painfully Ordinary",
         "Mind BLOWN" : "Meh",
         "Mind Blown" : "Meh",
+        "moo point" : "moot point",
+        "nauseous" : "nauseated",
         "Nothing Could Prepare Me For" : "Does ANYONE Fucking Care About",
         "Of All Time" : "Of The Last 30 Seconds",
         "Of All-Time" : "For Now",
@@ -35,12 +49,14 @@ var dictionary = {
         "Priceless" : "Painfully Ordinary",
         "Right Now" : "Eventually",
         "Scientific Reasons" : "Vaguely Science-y Reasons",
+        "seperate" : "separate",
         "Shocked" : "Vaguely Surprised",
         "Shocking" : "Barely Noticeable",
         "Simple Lessons" : "Inane Pieces of Bullshit Advice",
         "Stop What You're Doing" : "Bookmark Now and Later Completely Forget About",
         "Stop What You’re Doing" : "Bookmark Now and Later Completely Forget About",
         "Stop What You&#8217;re Doing" : "Bookmark Now and Later Completely Forget About",
+        "should of" : "should have",
         "TERRIFYING" : "MODERATELY UNCOMFORTABLE",
         "Terrifying" : "Thoroughly Banal",
         "That Will Make You Rethink" : "That You May Find Vaguely Interesting But Won't Change Your Life in Any Way",
@@ -59,6 +75,7 @@ var dictionary = {
         "Worst" : "Vaguely Unpleasant",
         "Wow" : "Oh GOD This is SO Boring. Please Kill Me",
         "WOW" : "Zzzzzzzzzzz",
+        "would of" : "would have",
         "You Didn't Know Exist" : "No One Gives a Shit About",
         "You Didn't Know Existed" : "No One Gives a Shit About",
         "You Didn’t Know Exist" : "No One Gives a Shit About",
@@ -77,6 +94,11 @@ var dictionary = {
         "\\b[Rr]estored [Oo]ur [Ff]aith [Ii]n [Hh]umanity\\b" : "Affected Us In No Meaningful Way Whatsoever",
         "\\b(?:Top )?((?:(?:\\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) Weird" : "$1 Boring",
         "\\b^(Is|Can|Do|Will) (.*)\\?\\B" : "$1 $2? Maybe, but Most Likely Not.",
-        "\\b^([Rr]easons\\s(?:[Tt]o\\s)?|[Ww]hy\\s|[Hh]ow\\s|[Ww]hat\\s[Yy]ou\\s[Ss]hould\\s[Kk]now\\s[Aa]bout\\s)(.*)\\b$": "$2"
+        "\\b^([Rr]easons\\s(?:[Tt]o\\s)?|[Ww]hy\\s|[Hh]ow\\s|[Ww]hat\\s[Yy]ou\\s[Ss]hould\\s[Kk]now\\s[Aa]bout\\s)(.*)\\b$": "$2",
+        "\\bless th[ae]n (\\d+ \\w+s)": "fewer than $2",
+        "\\b(\\w+)-ass (\\w+)": "$1 ass-$2",
+        "\\b([Tt])here were": "$1here were",
+        "\\b^([Mm])e and my (\\w+)": "My $2 and I",
+        "\\b^loose the": "lose the"
     }
 };
