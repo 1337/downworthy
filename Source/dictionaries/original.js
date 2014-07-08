@@ -8,7 +8,6 @@ var dictionary = {
         "affect." : "effect.",
         "affective " : "effective ",
         "alot" : "a lot",
-        "Best" : "Most Unexceptional",
         "Breathtaking" : "Fleetingly Inspirational",
         "But what happened next" : "And As You Expect It",
         "Can change your life" : "Will Not Change Your Life in ANY Meaningful Way",
@@ -22,6 +21,7 @@ var dictionary = {
         "disruption": "bullshit",  // https://news.ycombinator.com/item?id=7982410
         "doggy dog" : "dog eat dog",
         "Epic" : "Mundane",
+        "Exclusive: " : "",
         "finally ": "",  // someone finally releases software update
         "Go Viral" : "Be Overused So Much That You'll Silently Pray for the Sweet Release of Death to Make it Stop",
         "Greatest" : "Average",
@@ -48,6 +48,7 @@ var dictionary = {
         "pivot": "bullshit",  // https://news.ycombinator.com/item?id=7982410
         "Priceless" : "Painfully Ordinary",
         "Right Now" : "Eventually",
+        "ROI" : "bullshit",
         "Scientific Reasons" : "Vaguely Science-y Reasons",
         "seperate" : "separate",
         "Shocked" : "Vaguely Surprised",
@@ -60,6 +61,7 @@ var dictionary = {
         "TERRIFYING" : "MODERATELY UNCOMFORTABLE",
         "Terrifying" : "Thoroughly Banal",
         "That Will Make You Rethink" : "That You May Find Vaguely Interesting But Won't Change Your Life in Any Way",
+        "That Will Change Your Life" : "",
         "This Is What Happens" : "This Is Our Bullshit Clickbait Version Of What Happens",
         "Totally blew my mind" : "Bored Me To Tears",
         "Unbelievable" : "Painfully Ordinary",
@@ -89,7 +91,8 @@ var dictionary = {
     },
 
     "expressions": {
-        "\\b(?:Top )?((?:(?:\\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) Things" : "Inane Listicle of $1 Things You've Already Seen Somewhere Else",
+        "\\b(?:Top )?((?:(?:\\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) Things" : "Boring list of things",
+        "\\b^(?:Top|Best)?\\s*\\d+\\s+" : "",
         "\\b[Rr]estored [Mm]y [Ff]aith [Ii]n [Hh]umanity\\b" : "Affected Me In No Meaningful Way Whatsoever",
         "\\b[Rr]estored [Oo]ur [Ff]aith [Ii]n [Hh]umanity\\b" : "Affected Us In No Meaningful Way Whatsoever",
         "\\b(?:Top )?((?:(?:\\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) Weird" : "$1 Boring",

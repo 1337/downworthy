@@ -20,22 +20,25 @@
             matchFound = false,
             regex,
             original,
-            original_escaped,
-            regex_for_question_mark,
-            regex_for_period;
+            originalEscaped,
+            regexForQuestionMark,
+            regexForPeriod,
+            regexForSpace;
 
         //text replacements
         for (original in replacements) {
             if (replacements.hasOwnProperty(original)) {
-                original_escaped = original;
+                originalEscaped = original;
 
-                regex_for_question_mark = /\?/g;
-                regex_for_period = /\./g;
+                regexForQuestionMark = /\?/g;
+                regexForPeriod = /\./g;
+                regexForSpace = /\s/g;  // replace multiple continuous spaces
 
-                original_escaped = original_escaped.replace(regex_for_question_mark, "\\?");
-                original_escaped = original_escaped.replace(regex_for_period, "\\.");
+                originalEscaped = originalEscaped.replace(regexForQuestionMark, "\\?");
+                originalEscaped = originalEscaped.replace(regexForPeriod, "\\.");
+                originalEscaped = originalEscaped.replace(regexForSpace, "(?:\\s|&nbsp;)+");
 
-                regex = new RegExp('\\b' + original_escaped + '\\b', "gi");
+                regex = new RegExp('\\b' + originalEscaped + '\\b', "gi");
                 if (v.match(regex)) {
                     v = v.replace(regex, replacements[original]);
                     matchFound = true;
