@@ -96,7 +96,9 @@
     }
 
     function onMessage(request, sender, sendResponse) {
-        var requestId = request.id;
+        var i,
+            requestId = request.id,
+            stringifiedRegexDict = {'replacements': []};
 
         switch (requestId) {
         case 'isPaused?':
@@ -110,7 +112,18 @@
             localStorage.setItem(KEY_OPTIONS, request.options);
             break;
         case 'getDictionary':
-            sendResponse(dictionary);
+            for (i = 0; i < dictionary.replacements.length; i++) {
+                if (dictionary.replacements[i][0] instanceof RegExp) {
+                    stringifiedRegexDict.replacements.push([
+                        dictionary.replacements[i][0].toString(),
+                        dictionary.replacements[i][1]
+                    ]);
+                } else {
+                    stringifiedRegexDict.replacements.push(
+                        dictionary.replacements[i]);
+                }
+            }
+            sendResponse(stringifiedRegexDict);
             break;
         default:
             throw new Error("Unmanaged case " + requestId);
