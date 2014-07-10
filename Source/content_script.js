@@ -111,10 +111,11 @@
 
         // Only change the node if there was any actual text change
         if (matchFound) {
-            window.console.debug(textNode.nodeValue + ' --> ' + v);
-            textNode.nodeValue = v;
+            window.requestAnimationFrame(function () {
+                window.console.debug(textNode.nodeValue + ' --> ' + v);
+                textNode.nodeValue = v;
+            });
         }
-
     };
 
     /**
