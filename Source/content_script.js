@@ -43,6 +43,14 @@
         };
     };
 
+    /**
+     * Unused Promise wrapper
+     *
+     * @param fn
+     * @param context
+     * @returns {Promise}
+     * @constructor
+     */
     Deferred = function (fn, context) {
         var promise = new Promise(fn);
 
@@ -87,23 +95,28 @@
         for (i = 0; i < replacements.length; i++) {
             original = replacements[i][0];
             replacement = replacements[i][1];
+            regex = replacements[i][2];
 
-            if (original instanceof RegExp) {
-                // regex mode
-                regex = original;
-            } else if (original.length && original[0] === '/') {
-                // regex mode (build)
-                regex = new RegExp(original.substring(1, original.length - 1), 'g');
-                dictionary.replacements[i][0] = regex;
-            } else {
-                // string mode
-                original = original.replace(regexForQuestionMark, "\\?");
-                original = original.replace(regexForPeriod, "\\.");
-                original = original.replace(regexForSpace, "(?:\\s|&nbsp;)+");
-                regex = new RegExp('\\b' + original + '\\b', "g");
+            if (regex === undefined) {
+                if (original instanceof RegExp) {
+                    // regex mode
+                    regex = original;
+                } else if (original.length && original[0] === '/') {
+                    // regex mode (build)
+                    regex = new RegExp(original.substring(1, original.length - 1), 'g');
+                    dictionary.replacements[i][0] = regex;
+                } else {
+                    // string mode
+                    original = original.replace(regexForQuestionMark, "\\?");
+                    original = original.replace(regexForPeriod, "\\.");
+                    original = original.replace(regexForSpace, "(?:\\s|&nbsp;)+");
+                    regex = new RegExp('\\b' + original + '\\b', "g");
+                }
+                // cache compiled regexes
+                replacements[i][2] = regex;
             }
 
-            if (v.match(regex)) {
+            if ((v.indexOf(original) > -1) || v.match(regex)) {
                 v = v.replace(regex, replacement);
                 matchFound = true;
             }
@@ -111,10 +124,8 @@
 
         // Only change the node if there was any actual text change
         if (matchFound) {
-            window.requestAnimationFrame(function () {
-                window.console.debug(textNode.nodeValue + ' --> ' + v);
-                textNode.nodeValue = v;
-            });
+            window.console.debug(textNode.nodeValue + ' --> ' + v);
+            textNode.nodeValue = v;
         }
     };
 
