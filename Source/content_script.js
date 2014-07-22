@@ -214,7 +214,7 @@
             clearTimeout(timeout);
         }
 
-        timeout = setTimeout(work, 500);
+        timeout = setTimeout(work, 1000);
     }, false);
 
 }(this));
