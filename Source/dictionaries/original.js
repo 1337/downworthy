@@ -74,8 +74,11 @@ var dictionary = {
         ["would of", "would have"],
         ["YOLO", "I am a moron"],
 
+        [/.\.js\b/, '.jiss'],
         [/\b(?:(Top|The) )?((?:(?:\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) (?:Weird|Crazy|Bizzare)? (?:Things|Ways)/, "Boring list of things"],
         [/\b^(?:Top|Best)?\s*\d+\s+/, ""],
+        [/\b[Ll]ove\b/, "somewhat enjoy"],
+        [/\b[Hh]ate\b/, "mildly dislike"],
         [/\b[Rr]estored [Mm]y [Ff]aith [Ii]n [Hh]umanity\b/, "Affected Me In No Meaningful Way Whatsoever"],
         [/\b[Rr]estored [Oo]ur [Ff]aith [Ii]n [Hh]umanity\b/, "Affected Us In No Meaningful Way Whatsoever"],
         [/\b[Cc]an(?:[’'no])+t (?:[Ee]ven )?[Hh]andle\b/, "Can totally handle"],
@@ -89,8 +92,9 @@ var dictionary = {
         [/\b^loose the/, "lose the"],
         [/\b[Tt]errifyng/, "inconvenient"],
         [/\b[Mm]ind[\s\-][Bb]lowing/, "Ordinary"],
+        [/\b[Aa]nd [Aa]ll I [Gg]ot [Ww]as [Tt]his [Ll]ousy [Tt][\s-][Ss]hirt/, ""],
         [/\b[Ss]top [Ww]hat [Yy]ou('|’|&#8217;| [Aa])re [Dd]oing/, "Eventually Forget About"],
         [/\b^[Yy]ou [Ww]on('|’|&#8217;)?t [Bb]elieve/, "In All Likelihood, You'll Believe"],
-        [/\b(?:cloud|ass|synergy)/, "butt"]
+        [/\b(?:[Cc]loud|[Aa]ss|[Ss]ynergy)\b/, "butt"]
     ]
 };
