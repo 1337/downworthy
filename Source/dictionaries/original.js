@@ -30,6 +30,7 @@ var dictionary = {
         ["imbicile", "imbecile"],
         ["ironic", "coincidental"],  // because _|_ you, that's why
         ["irregardless", "regardless"],
+        ["kerning", "keming"],
         ["Literally", "Figuratively"],
         ["lets", "let's"],
         ["Mind BLOWN", "Meh"],
@@ -77,6 +78,8 @@ var dictionary = {
         [/.\.js\b/, '.jiss'],
         [/\b(?:(Top|The) )?((?:(?:\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) (?:Weird|Crazy|Bizzare)? (?:Things|Ways)/, "Boring list of things"],
         [/\b^(?:Top|Best)?\s*\d+\s+/, ""],
+        [/\b[Cc]lick here/, "Dick her"],  // wat
+        [/\b[Cc]lick/, "dick"],
         [/\b[Ll]ove\b/, "somewhat enjoy"],
         [/\b[Hh]ate\b/, "mildly dislike"],
         [/\b[Rr]estored [Mm]y [Ff]aith [Ii]n [Hh]umanity\b/, "Affected Me In No Meaningful Way Whatsoever"],
