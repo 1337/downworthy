@@ -76,6 +76,7 @@ var dictionary = {
         ["YOLO", "I am a moron"],
 
         [/\.js\b/, '.jiss'],
+        [/\.json\b/, '.jizzon'],
         [/\b(?:(Top|The) )?((?:(?:\d+|One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Seventeen|Eighteen|Nineteen|Twenty|Thirty|Forty|Fourty|Fifty|Sixty|Seventy|Eighty|Ninety|Hundred)(?: |-)?)+) (?:Weird|Crazy|Bizzare)? (?:Things|Ways)/, "Boring list of things"],
         [/\b^(?:Top|Best)?\s*\d+\s+/, ""],
         [/\b[Cc]lick here/, "Dick her"],  // wat
