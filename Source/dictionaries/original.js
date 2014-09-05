@@ -25,6 +25,7 @@ var dictionary = {
         ["Go Viral", "Get popular"],
         ["Greatest", "Average"],
         ["growth hacking", "marketing"],  // https://news.ycombinator.com/item?id=7982410
+        ["iCloud", "iButt"],
         ["Incredible", "Painfully Ordinary"],
         ["Infuriate", "Mildly Annoy"],
         ["imbicile", "imbecile"],
