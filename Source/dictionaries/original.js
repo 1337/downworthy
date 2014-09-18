@@ -84,6 +84,7 @@ var dictionary = {
         [/\b[Cc]lick/, "dick"],
         [/\b[Ll]ove\b/, "somewhat enjoy"],
         [/\b[Hh]ate\b/, "mildly dislike"],
+        [/\bforce\b/, 'horse'],  // http://xkcd.com/1418/
         [/\b[Rr]estored [Mm]y [Ff]aith [Ii]n [Hh]umanity\b/, "Affected Me In No Meaningful Way Whatsoever"],
         [/\b[Rr]estored [Oo]ur [Ff]aith [Ii]n [Hh]umanity\b/, "Affected Us In No Meaningful Way Whatsoever"],
         [/\b[Cc]an(?:[’'no])+t (?:[Ee]ven )?[Hh]andle\b/, "Can totally handle"],
